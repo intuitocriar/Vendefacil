@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VendeFácil — Gestão do seu negócio</title>
+<style>
+:root{--navy:#263859;--teal:#1e8a8a;--mint:#eaf3f5;--bg:#f4f7fb;--text:#263247;--muted:#6b7280;--white:#fff;--line:#e3e8ef;--gold:#f4c95d}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+.app{display:flex;min-height:100vh}.sidebar{width:245px;background:var(--navy);color:#fff;padding:24px 16px;display:flex;flex-direction:column;gap:10px}
+.brand{font-size:23px;font-weight:800;letter-spacing:.2px;margin:0 10px 4px}.tag{font-size:12px;color:#cbd5e1;margin:0 10px 24px}
+.nav{border:0;background:transparent;color:#dce5f3;text-align:left;padding:13px 12px;border-radius:10px;font-size:14px;cursor:pointer}.nav.active,.nav:hover{background:#ffffff1a;color:#fff}.sidebar .bottom{margin-top:auto;font-size:11px;color:#b7c4d8;padding:12px}
+main{flex:1;min-width:0;padding:28px 32px}.top{display:flex;justify-content:space-between;gap:14px;align-items:center;margin-bottom:24px}.top h1{margin:0;font-size:27px;color:var(--navy)}.top p{margin:6px 0 0;color:var(--muted);font-size:14px}.pill{background:#e2f5ed;color:#18754f;padding:8px 12px;border-radius:30px;font-size:12px;font-weight:700}
+.cards{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:14px;margin-bottom:22px}.card,.panel{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:0 4px 14px #24344a08}.card .label{font-size:12px;color:var(--muted);margin-bottom:10px}.card .value{font-size:25px;font-weight:800;color:var(--navy)}.card .sub{font-size:11px;color:var(--muted);margin-top:7px}
+.grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);gap:16px}.panel h2{font-size:16px;margin:0 0 15px;color:var(--navy)}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px}th{text-align:left;color:var(--muted);font-size:11px;font-weight:700;padding:11px 8px;border-bottom:1px solid var(--line)}td{padding:13px 8px;border-bottom:1px solid #edf0f4}tr:last-child td{border-bottom:0}.badge{display:inline-block;padding:5px 8px;border-radius:20px;font-size:11px;font-weight:700;background:#e1f5ed;color:#16734d}.badge.warn{background:#fff2d5;color:#986300}.quick{display:grid;grid-template-columns:1fr 1fr;gap:10px}.quick button,.primary{border:0;background:var(--teal);color:#fff;border-radius:10px;padding:12px 14px;font-weight:700;cursor:pointer}.secondary{border:1px solid var(--line);background:#fff;color:var(--navy);border-radius:10px;padding:10px 12px;font-weight:700;cursor:pointer}.quick button{background:var(--mint);color:var(--navy);text-align:left;min-height:70px}.quick button span{display:block;font-size:11px;font-weight:500;color:var(--muted);margin-top:5px}.notice{background:#fff8e5;border:1px solid #f6e6b6;border-radius:12px;padding:13px;font-size:12px;color:#755c18;margin-top:16px;line-height:1.5}
+.view{display:none}.view.active{display:block}.toolbar{display:flex;gap:10px;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap}.toolbar input,.toolbar select,.form input,.form select{border:1px solid var(--line);background:white;border-radius:9px;padding:10px 12px;font:inherit}.toolbar input{min-width:220px}.primary{white-space:nowrap}
+.form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:16px}.form label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted)}.form .wide{grid-column:1/-1}.empty{color:var(--muted);font-size:13px;padding:15px 0}
+footer{color:#8b95a5;font-size:11px;margin-top:22px}
+@media(max-width:1200px){.cards{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:1fr}.sidebar{width:205px}main{padding:22px}}
+@media(max-width:650px){.app{display:block}.sidebar{width:100%;padding:14px;display:flex;flex-direction:row;align-items:center;overflow:auto}.brand{font-size:18px;white-space:nowrap;margin:0 8px}.tag,.sidebar .bottom{display:none}.nav{white-space:nowrap;padding:10px}.sidebar .nav:first-of-type{margin-left:auto}main{padding:18px 13px}.top{align-items:flex-start}.top h1{font-size:22px}.pill{display:none}.cards{gap:9px}.card{padding:13px}.card .value{font-size:21px}.form{grid-template-columns:1fr}.form .wide{grid-column:auto}}
+</style></head>
+<body><div class="app">
+<aside class="sidebar">
+<div><div class="brand">◈ VendeFácil</div><div class="tag">Seu negócio organizado</div></div>
+<button class="nav active" data-view="dashboard">▦ Painel</button>
+<button class="nav" data-view="sales">↗ Vendas</button>
+<button class="nav" data-view="products">▣ Estoque</button>
+<button class="nav" data-view="expenses">− Despesas</button>
+<button class="nav" data-view="customers">♙ Clientes</button>
+<div class="bottom">Gestão simples para pequenos negócios • faça backups regularmente</div>
+</aside>
+<main>
+<section class="view active" id="dashboard">
+<div class="top"><div><h1>Visão geral</h1><p>Acompanhe o que está acontecendo no seu negócio.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" type="button" onclick="exportBackup()">Baixar backup</button><button class="secondary" type="button" onclick="document.getElementById('importFile').click()">Restaurar backup</button><input id="importFile" type="file" accept="application/json" hidden onchange="importBackup(event)"></div></div>
+<div class="cards">
+<div class="card"><div class="label">Vendas registradas</div><div class="value" id="metricSales">R$ 0,00</div><div class="sub">Vendas não canceladas</div></div>
+<div class="card"><div class="label">Lucro bruto estimado</div><div class="value" id="metricProfit">R$ 0,00</div><div class="sub">Venda menos custo dos produtos</div></div>
+<div class="card"><div class="label">Despesas lançadas</div><div class="value" id="metricExpenses">R$ 0,00</div><div class="sub">Despesas registradas</div></div>
+<div class="card"><div class="label">Resultado estimado</div><div class="value" id="metricNet">R$ 0,00</div><div class="sub">Lucro bruto menos despesas</div></div>
+<div class="card"><div class="label">Produtos cadastrados</div><div class="value" id="metricProducts">0</div><div class="sub" id="lowStockText">Nenhum alerta de estoque</div></div>
+</div>
+<div class="grid">
+<div class="panel"><h2>Vendas recentes</h2><div class="tablewrap"><table><thead><tr><th>Pedido</th><th>Produto</th><th>Data</th><th>Total</th><th>Status</th></tr></thead><tbody id="recentSales"></tbody></table></div><div class="empty" id="noRecent">Ainda não há vendas. Cadastre a primeira na aba Vendas.</div></div>
+<div class="panel"><h2>Ações rápidas</h2><div class="quick"><button data-goto="sales">＋ Registrar venda<span>Adicionar um pedido</span></button><button data-goto="products">▣ Cadastrar produto<span>Atualizar o estoque</span></button><button data-goto="expenses">− Lançar despesa<span>Registrar uma saída</span></button><button data-goto="customers">♙ Novo cliente<span>Guardar contato necessário</span></button></div><div class="notice">Dica: cadastre seus produtos primeiro. Depois, ao registrar uma venda, selecione o produto para preencher o preço automaticamente.</div></div>
+</div>
+</section>
+<section class="view" id="products">
+<div class="top"><div><h1>Estoque</h1><p>Cadastre produtos e acompanhe quantidades.</p></div></div>
+<div class="panel"><h2>Novo produto</h2><form class="form" id="productForm">
+<label>Nome do produto<input name="name" required placeholder="Ex.: Camiseta básica"></label><label>Categoria<input name="category" placeholder="Ex.: Roupas"></label>
+<label>Custo unitário (R$)<input name="cost" type="number" min="0" step=".01" required></label><label>Preço de venda (R$)<input name="price" type="number" min="0" step=".01" required></label>
+<label>Quantidade inicial<input name="qty" type="number" min="0" step="1" required></label><label>Estoque mínimo<input name="min" type="number" min="0" step="1" value="3" required></label>
+<div class="wide"><button class="primary">Adicionar produto</button></div></form></div>
+<div class="panel" style="margin-top:16px"><div class="toolbar"><h2 style="margin:0">Seus produtos</h2><input id="productSearch" placeholder="Buscar produto..."></div><div class="tablewrap"><table><thead><tr><th>Produto</th><th>Categoria</th><th>Custo</th><th>Preço</th><th>Quantidade</th><th>Estado</th><th></th></tr></thead><tbody id="productsTable"></tbody></table></div><div class="empty" id="noProducts">Nenhum produto cadastrado ainda.</div></div>
+</section>
+<section class="view" id="sales">
+<div class="top"><div><h1>Vendas</h1><p>Registre pedidos e acompanhe pagamentos.</p></div></div>
+<div class="panel"><h2>Registrar venda</h2><form class="form" id="saleForm">
+<label>Produto<select name="product" id="saleProduct" required><option value="">Selecione um produto</option></select></label><label>Quantidade<input name="qty" type="number" min="1" step="1" value="1" required></label>
+<label>Preço unitário (R$)<input name="price" id="salePrice" type="number" min="0" step=".01" required></label><label>Forma de pagamento<select name="payment"><option>Pix</option><option>Dinheiro</option><option>Cartão</option><option>Transferência</option><option>Outro</option></select></label>
+<label>Status<select name="status"><option>Pago</option><option>Pendente</option><option>Cancelado</option></select></label><label>Cliente (opcional)<input name="customer" placeholder="Nome do cliente"></label>
+<div class="wide"><button class="primary">Salvar venda</button></div></form></div>
+<div class="panel" style="margin-top:16px"><div class="toolbar"><h2 style="margin:0">Histórico de vendas</h2><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="salesSearch" placeholder="Buscar pedido ou produto..."><button class="secondary" type="button" onclick="exportSalesCSV()">Exportar vendas CSV</button></div></div><div class="tablewrap"><table><thead><tr><th>Pedido</th><th>Data</th><th>Produto</th><th>Qtd.</th><th>Total</th><th>Pagamento</th><th>Status</th></tr></thead><tbody id="salesTable"></tbody></table></div><div class="empty" id="noSales">Nenhuma venda cadastrada.</div></div>
+</section>
+<section class="view" id="expenses">
+<div class="top"><div><h1>Despesas</h1><p>Registre custos e outras saídas do negócio.</p></div></div>
+<div class="panel"><h2>Nova despesa</h2><form class="form" id="expenseForm">
+<label>Descrição<input name="description" required placeholder="Ex.: Embalagens"></label><label>Categoria<select name="category"><option>Estoque</option><option>Embalagem</option><option>Frete</option><option>Taxas</option><option>Marketing</option><option>Internet</option><option>Aluguel</option><option>Outros</option></select></label>
+<label>Valor (R$)<input name="amount" type="number" min="0.01" step=".01" required></label><label>Data<input name="date" type="date" required></label><div class="wide"><button class="primary">Salvar despesa</button></div></form></div>
+<div class="panel" style="margin-top:16px"><h2>Despesas registradas</h2><div class="tablewrap"><table><thead><tr><th>Data</th><th>Descrição</th><th>Categoria</th><th>Valor</th><th></th></tr></thead><tbody id="expensesTable"></tbody></table></div><div class="empty" id="noExpenses">Nenhuma despesa cadastrada.</div></div>
+</section>
+<section class="view" id="customers">
+<div class="top"><div><h1>Clientes</h1><p>Guarde apenas os dados necessários para atender seus clientes.</p></div></div>
+<div class="panel"><h2>Novo cliente</h2><form class="form" id="customerForm">
+<label>Nome<input name="name" required placeholder="Nome do cliente"></label><label>Telefone ou WhatsApp (opcional)<input name="phone" placeholder="(00) 00000-0000"></label>
+<label>E-mail (opcional)<input name="email" type="email" placeholder="cliente@email.com"></label><label>Cidade (opcional)<input name="city" placeholder="Cidade"></label>
+<div class="wide"><button class="primary">Adicionar cliente</button></div></form></div>
+<div class="panel" style="margin-top:16px"><h2>Lista de clientes</h2><div class="tablewrap"><table><thead><tr><th>Nome</th><th>Telefone</th><th>E-mail</th><th>Cidade</th><th></th></tr></thead><tbody id="customersTable"></tbody></table></div><div class="empty" id="noCustomers">Nenhum cliente cadastrado.</div></div>
+</section>
+<footer>VendeFácil • Versão local. Seus dados ficam neste navegador/dispositivo e não são sincronizados automaticamente. Baixe backups regularmente. Não use para guardar dados sensíveis nem como substituto de um sistema contábil.</footer>
+</main></div>
+<script>
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const brl=n=>new Intl.NumberFormat('pt-BR',{style:'currency',currency:'BRL'}).format(Number(n)||0);
+const today=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10)};
+let state={products:[],sales:[],expenses:[],customers:[]};
+try{state={...state,...JSON.parse(localStorage.getItem('vendefacil-data-v1')||localStorage.getItem('vendefacil-demo')||'{}')}}catch(e){}
+function save(){try{localStorage.setItem('vendefacil-data-v1',JSON.stringify(state));render()}catch(e){alert('Não foi possível salvar os dados neste navegador. Baixe um backup e libere espaço, se necessário.')}}
+function exportBackup(){const blob=new Blob([JSON.stringify({version:1,exportedAt:new Date().toISOString(),data:state},null,2)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='backup-vendefacil-'+today()+'.json';a.click();URL.revokeObjectURL(a.href)}
+function exportSalesCSV(){const rows=[['Pedido','Data','Produto','Quantidade','Preço unitário','Total','Pagamento','Status','Cliente'],...state.sales.map(s=>[s.order,s.date,s.product,s.qty,s.price,(s.qty*s.price).toFixed(2),s.payment,s.status,s.customer||''])];const csv='\ufeff'+rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(';')).join('\r\n');const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='vendas-vendefacil-'+today()+'.csv';a.click();URL.revokeObjectURL(a.href)}
+function importBackup(ev){const file=ev.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const obj=JSON.parse(reader.result);const d=obj.data||obj;if(!d||!Array.isArray(d.products)||!Array.isArray(d.sales)||!Array.isArray(d.expenses)||!Array.isArray(d.customers))throw new Error('Formato inválido');if(confirm('Restaurar este backup? Os dados atuais serão substituídos.')){state=d;save();alert('Backup restaurado com sucesso.')}}catch(e){alert('Não foi possível ler esse backup. Selecione um arquivo JSON exportado pelo VendeFácil.')}ev.target.value=''};reader.readAsText(file)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function money(v){return brl(v)}
+function go(view){$$('.view').forEach(x=>x.classList.toggle('active',x.id===view));$$('.nav').forEach(x=>x.classList.toggle('active',x.dataset.view===view));}
+$$('.nav').forEach(b=>b.addEventListener('click',()=>go(b.dataset.view)));
+$$('[data-goto]').forEach(b=>b.addEventListener('click',()=>go(b.dataset.goto)));
+$('#productForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);state.products.push({id:Date.now(),name:f.get('name').trim(),category:f.get('category').trim(),cost:+f.get('cost'),price:+f.get('price'),qty:+f.get('qty'),min:+f.get('min')});e.target.reset();e.target.elements.min.value=3;save()});
+$('#saleProduct').addEventListener('change',e=>{const p=state.products.find(x=>x.id==e.target.value);$('#salePrice').value=p?p.price:''});
+$('#saleForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target),p=state.products.find(x=>x.id==f.get('product'));if(!p){alert('Cadastre e selecione um produto primeiro.');return}const qty=+f.get('qty'),status=f.get('status');if(status!=='Cancelado'&&qty>p.qty){if(!confirm('A quantidade vendida é maior que o estoque cadastrado. Registrar mesmo assim?'))return}state.sales.unshift({id:Date.now(),order:'VF-'+String(state.sales.length+1).padStart(4,'0'),date:today(),productId:p.id,product:p.name,qty,price:+f.get('price'),cost:p.cost,payment:f.get('payment'),status,customer:f.get('customer')});if(status!=='Cancelado')p.qty-=qty;e.target.reset();$('#salePrice').value='';save()});
+$('#expenseForm').elements.date.value=today();
+$('#expenseForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);state.expenses.unshift({id:Date.now(),date:f.get('date'),description:f.get('description').trim(),category:f.get('category'),amount:+f.get('amount')});e.target.reset();e.target.elements.date.value=today();save()});
+$('#customerForm').addEventListener('submit',e=>{e.preventDefault();const f=new FormData(e.target);state.customers.push({id:Date.now(),name:f.get('name').trim(),phone:f.get('phone').trim(),email:f.get('email').trim(),city:f.get('city').trim()});e.target.reset();save()});
+function del(type,id){if(confirm('Excluir este registro?')){if(type==='sales'){const s=state.sales.find(x=>x.id===id);if(s&&s.status!=='Cancelado'){const p=state.products.find(x=>x.id===s.productId);if(p)p.qty+=s.qty}}state[type]=state[type].filter(x=>x.id!==id);save()}}
+function render(){
+const total=state.sales.filter(s=>s.status!=='Cancelado').reduce((a,s)=>a+s.qty*s.price,0);
+const cost=state.sales.filter(s=>s.status!=='Cancelado').reduce((a,s)=>a+s.qty*s.cost,0);
+const expenses=state.expenses.reduce((a,x)=>a+x.amount,0);
+$('#metricSales').textContent=money(total);$('#metricProfit').textContent=money(total-cost);$('#metricExpenses').textContent=money(expenses);$('#metricNet').textContent=money(total-cost-expenses);$('#metricProducts').textContent=state.products.length;
+const low=state.products.filter(p=>p.qty<=p.min).length;$('#lowStockText').textContent=low?`${low} produto(s) com estoque baixo`:'Nenhum alerta de estoque';
+$('#recentSales').innerHTML=state.sales.slice(0,5).map(s=>`<tr><td>${esc(s.order)}</td><td>${esc(s.product)}</td><td>${esc(s.date)}</td><td>${money(s.qty*s.price)}</td><td><span class="badge ${s.status==='Pendente'?'warn':''}">${esc(s.status)}</span></td></tr>`).join('');
+$('#noRecent').style.display=state.sales.length?'none':'block';
+$('#productsTable').innerHTML=state.products.filter(p=>(p.name+' '+p.category).toLowerCase().includes(($('#productSearch').value||'').toLowerCase())).map(p=>`<tr><td>${esc(p.name)}</td><td>${esc(p.category||'—')}</td><td>${money(p.cost)}</td><td>${money(p.price)}</td><td>${p.qty}</td><td><span class="badge ${p.qty<=p.min?'warn':''}">${p.qty<=p.min?'Estoque baixo':'Disponível'}</span></td><td><button onclick="del('products',${p.id})">Excluir</button></td></tr>`).join('');
+$('#noProducts').style.display=state.products.length?'none':'block';
+$('#saleProduct').innerHTML='<option value="">Selecione um produto</option>'+state.products.map(p=>`<option value="${p.id}">${esc(p.name)} — ${money(p.price)}</option>`).join('');
+$('#salesTable').innerHTML=state.sales.filter(s=>(s.order+' '+s.product+' '+s.customer).toLowerCase().includes(($('#salesSearch').value||'').toLowerCase())).map(s=>`<tr><td>${esc(s.order)}</td><td>${esc(s.date)}</td><td>${esc(s.product)}</td><td>${s.qty}</td><td>${money(s.qty*s.price)}</td><td>${esc(s.payment)}</td><td><span class="badge ${s.status==='Pendente'?'warn':''}">${esc(s.status)}</span> <button onclick="del('sales',${s.id})">×</button></td></tr>`).join('');
+$('#noSales').style.display=state.sales.length?'none':'block';
+$('#expensesTable').innerHTML=state.expenses.map(x=>`<tr><td>${esc(x.date)}</td><td>${esc(x.description)}</td><td>${esc(x.category)}</td><td>${money(x.amount)}</td><td><button onclick="del('expenses',${x.id})">Excluir</button></td></tr>`).join('');
+$('#noExpenses').style.display=state.expenses.length?'none':'block';
+$('#customersTable').innerHTML=state.customers.map(x=>`<tr><td>${esc(x.name)}</td><td>${esc(x.phone||'—')}</td><td>${esc(x.email||'—')}</td><td>${esc(x.city||'—')}</td><td><button onclick="del('customers',${x.id})">Excluir</button></td></tr>`).join('');
+$('#noCustomers').style.display=state.customers.length?'none':'block';
+}
+$('#productSearch').addEventListener('input',render);$('#salesSearch').addEventListener('input',render);
+render();
+</script></body></html>
